@@ -22,6 +22,7 @@ import ch.wiss.m295.block3_intro.model.requests.QuestionWithAnswersRequest;
 import ch.wiss.m295.block3_intro.model.Answer;
 import ch.wiss.m295.block3_intro.model.Category;
 import ch.wiss.m295.block3_intro.repositories.QuestionRepository;
+import jakarta.validation.Valid;
 import ch.wiss.m295.block3_intro.repositories.AnswerRepository;
 import ch.wiss.m295.block3_intro.repositories.CategoryRepository;
 
@@ -48,7 +49,7 @@ public class QuestionController {
   public ResponseEntity<Iterable<Question>> getQuestions() {
     return ResponseEntity.ok().body(questionRepository.findAll());
   }
-  
+
   @GetMapping("/withCategory/{id}")
   public ResponseEntity<Iterable<QuestionWithCategory>> getQuestionsByCategory(@PathVariable long id) {
     Category filterCategory = categoryRepository.findById(id).get();
@@ -58,7 +59,7 @@ public class QuestionController {
   }
 
   @PostMapping("/withCategory/")
-  public ResponseEntity<Question> createQuestionWithCategory(@RequestBody QuestionWithCategoryRequest questionWithCategoryRequest) {
+  public ResponseEntity<Question> createQuestionWithCategory(@Valid @RequestBody QuestionWithCategoryRequest questionWithCategoryRequest) {
     System.out.println("Creating question: " + questionWithCategoryRequest.getQuestion());
     Optional<Category> category = categoryRepository.findById(questionWithCategoryRequest.getCategoryId());
     if (category.isPresent()) {
@@ -72,7 +73,7 @@ public class QuestionController {
   }
 
   @PostMapping("/withCategoryAndAnswers/")
-  public ResponseEntity<Question> createQuestionwithCategoryAndAnswers(@RequestBody QuestionWithAnswersRequest questionWithAnswersRequest) {
+  public ResponseEntity<Question> createQuestionwithCategoryAndAnswers(@Valid @RequestBody QuestionWithAnswersRequest questionWithAnswersRequest) {
     System.out.println("Creating question: " + questionWithAnswersRequest.getQuestion());
     Optional<Category> category = categoryRepository.findById(questionWithAnswersRequest.getCategoryId());
     if (category.isPresent()) {

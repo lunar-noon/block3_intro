@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.wiss.m295.block3_intro.model.Student;
 import ch.wiss.m295.block3_intro.repositories.StudentRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/student")
@@ -31,7 +32,7 @@ public class StudentController {
   }
 
   @PostMapping("/")
-  public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+  public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
     System.out.println("Creating student: " + student);
     return ResponseEntity.ok().body(studentRepository.save(student));
   }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.wiss.m295.block3_intro.model.Category;
 import ch.wiss.m295.block3_intro.repositories.CategoryRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/category")
@@ -32,13 +33,13 @@ public class CategoryController {
   }
 
   @PostMapping("/")
-  public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+  public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) {
     System.out.println("Creating category: " + category);
     return ResponseEntity.ok().body(categoryRepository.save(category));
   }
 
   @PutMapping("/")
-  public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
+  public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) {
     System.out.println("Updating category: " + category);
     return ResponseEntity.ok().body(categoryRepository.save(category));
   }

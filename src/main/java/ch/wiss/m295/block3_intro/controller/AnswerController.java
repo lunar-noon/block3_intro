@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.wiss.m295.block3_intro.model.Answer;
 import ch.wiss.m295.block3_intro.repositories.AnswerRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/answer")
@@ -31,7 +32,7 @@ public class AnswerController {
   }
 
   @PostMapping("/")
-  public ResponseEntity<Answer> createCategory(@RequestBody Answer answer) {
+  public ResponseEntity<Answer> createCategory(@Valid @RequestBody Answer answer) {
     System.out.println("Creating answer: " + answer);
     return ResponseEntity.ok().body(answerRepository.save(answer));
   }
